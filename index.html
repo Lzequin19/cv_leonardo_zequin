@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leonardo Zequin — CV Vivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300&family=Barlow+Condensed:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --purple:#7030A0; --fuchsia:#FA41CC; --teal:#1C89AF; }
+  html[data-theme="dark"] {
+    --bg:#2D2B2C; --bg-side:#383537; --text:#fff; --text-soft:#b9b3bd;
+    --border:rgba(255,255,255,0.08); --tag-bg:rgba(112,48,160,0.25); --tag-text:#E7DAEB; --entry-border:rgba(112,48,160,0.45);
+  }
+  html[data-theme="light"] {
+    --bg:#faf8fc; --bg-side:#f0eaf4; --text:#2D2B2C; --text-soft:#5a5458;
+    --border:#e0d5e8; --tag-bg:#efe2f4; --tag-text:#5a2a7a; --entry-border:#c9a8d6;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text); display:flex; justify-content:center; padding:32px 16px; transition: background .2s,color .2s; }
+  .toolbar { position:fixed; top:16px; right:16px; z-index:50; display:flex; gap:8px; align-items:center; }
+  .toolbar select, .toolbar button {
+    font-family:'Barlow',sans-serif; font-size:12px; font-weight:600; border:none; border-radius:20px; padding:8px 14px; cursor:pointer;
+  }
+  .toolbar select { background: var(--bg-side); color: var(--text); border:1px solid var(--border); }
+  .toolbar button { background: var(--purple); color:#fff; }
+  .sheet { max-width:980px; width:100%; background:var(--bg); border-radius:10px; overflow:hidden; min-height:200px; }
+  .layout { display:grid; grid-template-columns:270px 1fr; gap:0; }
+  .sidebar { background:var(--bg-side); padding:40px 26px; border-right:1px solid var(--border); }
+  .photo { width:120px; height:120px; border-radius:50%; overflow:hidden; margin:0 auto 18px; background:linear-gradient(135deg,var(--purple),var(--fuchsia)); display:flex; align-items:center; justify-content:center; }
+  .photo img { width:100%; height:100%; object-fit:cover; }
+  .sidebar h1 { font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:900; text-align:center; text-transform:uppercase; line-height:1.15; margin-bottom:18px; }
+  .side-block { margin-bottom:24px; }
+  .side-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--purple); margin-bottom:8px; border-bottom:1px solid var(--border); padding-bottom:6px; }
+  .side-item { font-size:12px; color:var(--text-soft); line-height:1.55; margin-bottom:5px; }
+  .tag { display:inline-block; background:var(--tag-bg); color:var(--tag-text); font-size:10.5px; font-weight:600; padding:3px 9px; border-radius:12px; margin:0 4px 5px 0; }
+  .main { padding:40px 34px; }
+  .profile-tag { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--teal); margin-bottom:6px; }
+  .section { margin-bottom:30px; }
+  .section-title { font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; margin-bottom:14px; display:flex; align-items:center; gap:9px; }
+  .section-title::before { content:''; width:16px; height:3px; background:var(--fuchsia); border-radius:2px; flex-shrink:0; }
+  .intro-text { font-size:13px; line-height:1.7; color:var(--text-soft); }
+  .entry { margin-bottom:14px; padding-left:14px; border-left:2px solid var(--entry-border); }
+  .entry:last-child { margin-bottom:0; }
+  .entry-title { font-size:13.5px; font-weight:700; }
+  .entry-meta { font-size:10.5px; font-weight:600; color:var(--teal); text-transform:uppercase; letter-spacing:.3px; margin:2px 0 4px; }
+  .entry-desc { font-size:12px; line-height:1.6; color:var(--text-soft); }
+  .impact-tag { display:inline-block; margin-top:6px; background:rgba(28,137,175,0.18); color:var(--teal); font-size:10.5px; font-weight:600; padding:2px 9px; border-radius:6px; }
+  .state-msg { padding:60px 20px; text-align:center; color:var(--text-soft); font-size:13px; }
+  .footer-note { text-align:center; font-size:9.5px; color:var(--text-soft); opacity:.6; letter-spacing:1px; text-transform:uppercase; padding:16px 0 4px; }
+  @media (max-width:680px){ .layout{grid-template-columns:1fr;} .sidebar{border-right:none;border-bottom:1px solid var(--border);} }
+  @media print {
+    .toolbar{display:none;}
+    html{ --bg:#fff; --bg-side:#f5f5f7; --text:#1a1a1a; --text-soft:#444; --border:#ddd; --tag-bg:#eee; --tag-text:#333; --entry-border:#ccc; }
+    body{padding:0;} .sheet{border-radius:0;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <select id="perfilSelect" onchange="cargarPerfil(this.value)">
+      <option value="consultor_zeta">Consultor Zeta</option>
+      <option value="docente_unraf">Docente UNRaf</option>
+      <option value="docente_utn">Docente UTN</option>
+      <option value="gerente_polo">Gerente Polo Tecnológico</option>
+      <option value="cv_maestro">CV Maestro (completo)</option>
+    </select>
+    <button onclick="toggleTheme()" id="themeBtn">☀ Claro</button>
+  </div>
+
+  <div class="sheet" id="sheet">
+    <div class="state-msg">Cargando…</div>
+  </div>
+
+<script>
+  const API_URL = 'https://script.google.com/macros/s/AKfycbzeu7JL6vnPMvYZPZ6rlfXu6fuB3wiUY8_hNruS1P1qm0SepYspv2zIvRSIvST4_YtS/exec';
+
+  const GROUP_MAP = {
+    experiencia: ['proyecto_cliente','gestion','desarrollo_producto'],
+    docencia: ['docencia'],
+    investigacion: ['investigacion'],
+    divulgacion: ['evento','publicacion'],
+    capacitacion: ['capacitacion']
+  };
+  const SECTION_TITLES = {
+    experiencia: 'Experiencia laboral',
+    docencia: 'Experiencia docente',
+    investigacion: 'Investigación',
+    divulgacion: 'Divulgación y charlas',
+    capacitacion: 'Cursos y congresos',
+    formacion: 'Formación académica',
+    habilidades: 'Habilidades'
+  };
+
+  function toggleTheme(){
+    const html = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+    if (html.getAttribute('data-theme') === 'dark') { html.setAttribute('data-theme','light'); btn.textContent='🌙 Oscuro'; }
+    else { html.setAttribute('data-theme','dark'); btn.textContent='☀ Claro'; }
+  }
+
+  function formatFecha(iso){
+    if (!iso) return 'Fecha a confirmar';
+    const d = new Date(iso);
+    if (isNaN(d)) return 'Fecha a confirmar';
+    return d.toLocaleDateString('es-AR', { year:'numeric', month:'long' });
+  }
+
+  function entryCard(item, metaExtra){
+    let meta = formatFecha(item.fecha);
+    if (item.sector_cliente) meta += ' · ' + item.sector_cliente;
+    if (metaExtra) meta = metaExtra;
+    let html = '<div class="entry"><div class="entry-title">' + (item.titulo || '') + '</div>';
+    html += '<div class="entry-meta">' + meta + '</div>';
+    if (item.descripcion) html += '<div class="entry-desc">' + item.descripcion + '</div>';
+    if (item.impacto_medible) html += '<div class="impact-tag">✓ ' + item.impacto_medible + '</div>';
+    html += '</div>';
+    return html;
+  }
+
+  function render(data){
+    const perfil = data.perfil;
+    const photoUrl = (data.config && data.config.foto_url) || '';
+
+    let sidebar = '<div class="photo">' + (photoUrl ? '<img src="'+photoUrl+'" alt="Foto">' : '') + '</div>';
+    sidebar += '<h1>' + (perfil.nombre_publico || 'Leonardo Zequin') + '</h1>';
+
+    if (data.config && data.config.datos_contacto) {
+      sidebar += '<div class="side-block"><div class="side-label">Contacto</div><div class="side-item">' + data.config.datos_contacto + '</div></div>';
+    }
+
+    const habTec = data.habilidades.filter(h => h.categoria === 'tecnica');
+    const habBlanda = data.habilidades.filter(h => h.categoria === 'blanda');
+    const habIdioma = data.habilidades.filter(h => h.categoria === 'idioma');
+
+    if (habTec.length) {
+      sidebar += '<div class="side-block"><div class="side-label">Herramientas</div>' + habTec.map(h => '<span class="tag">'+h.nombre+'</span>').join('') + '</div>';
+    }
+    if (habBlanda.length) {
+      sidebar += '<div class="side-block"><div class="side-label">Aptitudes</div>' + habBlanda.map(h => '<span class="tag">'+h.nombre+'</span>').join('') + '</div>';
+    }
+    if (habIdioma.length) {
+      sidebar += '<div class="side-block"><div class="side-label">Idiomas</div>' + habIdioma.map(h => '<div class="side-item">'+h.nombre+' — '+h.nivel+'</div>').join('') + '</div>';
+    }
+
+    let main = '<div class="profile-tag">Perfil: ' + perfil.id_perfil + '</div>';
+
+    const orden = String(perfil.orden_secciones || '').split(',').map(s => s.trim()).filter(Boolean);
+
+    orden.forEach(key => {
+      if (key === 'perfil') {
+        main += '<div class="section"><div class="section-title">Perfil profesional</div><p class="intro-text">' + (perfil.resumen_intro || '') + '</p></div>';
+        return;
+      }
+      if (key === 'formacion') {
+        if (!data.estudios.length) return;
+        main += '<div class="section"><div class="section-title">' + SECTION_TITLES.formacion + '</div>';
+        data.estudios.forEach(e => {
+          main += entryCard({ titulo: e.titulo, descripcion: e.institucion }, formatFecha(e.fecha_fin));
+        });
+        main += '</div>';
+        return;
+      }
+      if (key === 'habilidades') return; // ya está en sidebar
+
+      const tipos = GROUP_MAP[key];
+      if (!tipos) return;
+      const items = data.logros.filter(l => tipos.indexOf(l.tipo_logro) !== -1);
+      if (!items.length) return;
+      main += '<div class="section"><div class="section-title">' + (SECTION_TITLES[key] || key) + '</div>';
+      items.forEach(l => main += entryCard(l));
+      main += '</div>';
+    });
+
+    document.getElementById('sheet').innerHTML =
+      '<div class="layout"><div class="sidebar">' + sidebar + '</div><div class="main">' + main + '</div></div>' +
+      '<div class="footer-note">Leonardo Zequin · Generado en vivo desde el repositorio · Perfil: ' + perfil.id_perfil + '</div>';
+  }
+
+  async function cargarPerfil(perfilId){
+    document.getElementById('sheet').innerHTML = '<div class="state-msg">Cargando…</div>';
+    try {
+      const res = await fetch(API_URL + '?perfil=' + encodeURIComponent(perfilId));
+      const data = await res.json();
+      if (data.error) {
+        document.getElementById('sheet').innerHTML = '<div class="state-msg">⚠ ' + data.error + '</div>';
+        return;
+      }
+      render(data);
+    } catch (err) {
+      document.getElementById('sheet').innerHTML =
+        '<div class="state-msg">No se pudo conectar con el endpoint.<br>Puede ser un problema de CORS/redirect de Apps Script.<br><small>' + err.message + '</small></div>';
+    }
+  }
+
+  cargarPerfil('consultor_zeta');
+</script>
+</body>
+</html>
